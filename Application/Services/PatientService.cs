@@ -1,4 +1,5 @@
 using System.Net;
+using Application.DTOs;
 using Application.Interfaces;
 using Application.Responces;
 using Domain.Interfaces;
@@ -9,42 +10,73 @@ namespace Application.Services;
 public class PatientService(IPatientRepository patientRepository) : IPatientService
 {
     private IPatientRepository repository = patientRepository;
-    public async Task<ApiResronce<bool>> AddPatientAsync(Patient patient)
+    public async Task<ApiResponse<bool>> AddPatientAsync(CreatePatientDto dto)
     {
+        var patient = new Patient()
+        {
+            Fullname = dto.Fullname,
+            Phone = dto.Phone,
+            BirthDate = (DateTime)dto.BirthDate
+        };
         var res = await repository.AddPatientAsync(patient);
-        return res == true
-        ? new ApiResronce<bool>(HttpStatusCode.OK, "Added!", res)
-        : new ApiResronce<bool>(HttpStatusCode.InternalServerError, "Not Added!", res);
+        return res==true
+        ? new ApiResponse<bool>(HttpStatusCode.OK, "Added!", res)
+        : new ApiResponse<bool>(HttpStatusCode.InternalServerError, "Not added.", res);
     }
 
-    public async Task<ApiResronce<bool>> DeletePatientAsync(int id)
+    public async Task<ApiResponse<bool>> DeactivatePatientAsync(int id)
     {
-        var res = await repository.DeletePatientAsync(id);
-        return res == true
-        ? new ApiResronce<bool>(HttpStatusCode.OK, "Deleted!", res)
-        : new ApiResronce<bool>(HttpStatusCode.OK, "Not Deleted!", res);
+        var res = await repository.DeactivatePatientAsync(id);
+        return res==true
+        ? new ApiResponse<bool>(HttpStatusCode.OK, "Deactivated!", res)
+        : new ApiResponse<bool>(HttpStatusCode.InternalServerError, "Not deactivated.", res);
     }
 
-    public async Task<ApiResronce<Patient>> GetPatientAsync(int id)
+    public async Task<ApiResponse<PatientDto>> GetPatientAsync(int id)
     {
-        var res = await repository.GetPatientAsync(id);
-        return res == null
-        ? new ApiResronce<Patient>(HttpStatusCode.OK, "Patient not found!", res)
-        : new ApiResronce<Patient>(HttpStatusCode.InternalServerError, "Patient with given id", res);
+        var patient = await repository.GetPatientAsync(id);
+        var res = patient==null ? null : new PatientDto()
+        {
+            Id = patient.Id,
+            Fullname = patient.Fullname,
+            Phone = patient.Phone,
+            BirthDate = patient.BirthDate,
+            IsActive = patient.IsActive,
+            CreatedAt = patient.CreateAt
+        };
+        return res!=null
+        ? new ApiResponse<PatientDto>(HttpStatusCode.OK, "Patient with given id.", res)
+        : new ApiResponse<PatientDto>(HttpStatusCode.NotFound, "No patient with given id.", res!);
     }
 
-    public async Task<ApiResronce<List<Patient>>> GetPatientsAsync()
+    public async Task<ApiResponse<List<PatientDto>>> GetPatientsAsync()
     {
-        var res = await repository.GetPatientsAsync();
-        return new ApiResronce<List<Patient>>(HttpStatusCode.OK, "List of Patients", res);
+        var patients = await repository.GetPatientsAsync();
+        var res = patients.Select(x=>new PatientDto()
+        {
+            Id = x.Id,
+            Fullname = x.Fullname,
+            Phone = x.Phone,
+            BirthDate = x.BirthDate,
+            IsActive = x.IsActive,
+            CreatedAt = x.CreateAt
+        }).ToList();
+        return new ApiResponse<List<PatientDto>>(HttpStatusCode.OK, "List of patients.", res);
     }
 
-    public async Task<ApiResronce<bool>> UpdatePatientAsync(Patient patient)
+    public async Task<ApiResponse<bool>> UpdatePatientAsync(int id, UpdatePatientDto dto)
     {
+        var patient = new Patient()
+        {
+            Id = id,
+            Fullname = dto.Fullname,
+            Phone = dto.Phone,
+            BirthDate = (DateTime)dto.BirthDate,
+            IsActive = dto.IsActive
+        };
         var res = await repository.UpdatePatientAsync(patient);
-        return res == true
-        ? new ApiResronce<bool>(HttpStatusCode.OK, "Updated!", res)
-        : new ApiResronce<bool>(HttpStatusCode.InternalServerError, "Not Updates!", res);
+        return res==true
+        ? new ApiResponse<bool>(HttpStatusCode.OK, "Updated!", res)
+        : new ApiResponse<bool>(HttpStatusCode.InternalServerError, "Not updated.", res);
     }
-
 }

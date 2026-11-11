@@ -1,29 +1,37 @@
+using Application.DTOs;
 using Application.Interfaces;
 using Application.Responces;
-using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApi.Controllers;
+namespace WebAPI.Controllers;
 
-public class RoomContorller(IRoomService roomService) : ControllerBase
+[ApiController]
+[Route("rooms")]
+public class RoomController(IRoomService roomService) : ControllerBase
 {
     private IRoomService service = roomService;
 
     [HttpPost]
-    public async Task<ApiResronce<bool>> AddRoom(Room room)
+    public async Task<ApiResponse<bool>> AddRoom(CreateRoomDto dto)
     {
-        return await service.AddRoom(room);
+        return await service.AddRoomAsync(dto);
     }
 
-    [HttpDelete]
-    public async Task<ApiResronce<bool>> DeleteRoom(int id)
+    [HttpPut("{id:int}")]
+    public async Task<ApiResponse<bool>> UpdateRoom(int id, UpdateRoomDto dto)
     {
-        return await service.DeleteRoom(id);
+        return await service.UpdateRoomAsync(id, dto);
     }
-    
-    [HttpPut]
-    public async Task<ApiResronce<bool>> UpdateRoom(Room room)
+
+    [HttpPatch("{id:int}/deactivate")]
+    public async Task<ApiResponse<bool>> DeactivateRoom(int id)
     {
-        return await service.UpdateRoom(room);
+        return await service.DeactivateRoomAsync(id);
+    }
+
+    [HttpGet]
+    public async Task<ApiResponse<List<RoomDto>>> GetRooms()
+    {
+        return await service.GetRoomsAsync();
     }
 }

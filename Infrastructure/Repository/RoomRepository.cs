@@ -3,7 +3,7 @@ using Domain.Interfaces;
 using Domain.Models;
 using Infrastructure.Data;
 
-namespace Infrastructure.Repository;
+namespace Infrastructure.Repositories;
 
 public class RoomRepository(AppDbContext appDbContext) : IRoomRepository
 {
@@ -16,18 +16,25 @@ public class RoomRepository(AppDbContext appDbContext) : IRoomRepository
         return res > 0;
     }
 
-    public async Task<bool> DeleteRoomAsync(int id)
+    public async Task<bool> DeactivateRoomAsync(int id)
     {
         using var connection = _context.Connection();
-        var query = "delete from rooms where id = @id";
-        var res  = await connection.ExecuteAsync(query, new {id});
+        var query = "update rooms set isactive = false where id = @id";
+        var res = await connection.ExecuteAsync(query, new { id });
         return res > 0;
+    }
+
+    public async Task<List<Room>> GetRoomsAsync()
+    {
+        using var connection = _context.Connection();
+        var query = "select * from rooms order by id";
+        return (await connection.QueryAsync<Room>(query)).ToList();
     }
 
     public async Task<bool> UpdateRoomAsync(Room room)
     {
         using var connection = _context.Connection();
-        var query = "update rooms set name = @name, isactive = isactive where id = @id";
+        var query = "update rooms set name = @name, isactive = @isactive where id = @id";
         var res = await connection.ExecuteAsync(query, room);
         return res > 0;
     }

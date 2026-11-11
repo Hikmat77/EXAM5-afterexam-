@@ -1,10 +1,9 @@
+using Application.DTOs;
 using Application.Interfaces;
 using Application.Responces;
-using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
-
-namespace WebApi.Controllers;
+namespace WebAPI.Controllers;
 
 [ApiController]
 [Route("patients")]
@@ -13,32 +12,32 @@ public class PatientController(IPatientService patientService) : ControllerBase
     private IPatientService service = patientService;
 
     [HttpPost]
-    public async Task<ApiResronce<bool>> AddPatient(Patient patient)
+    public async Task<ApiResponse<bool>> AddPatient(CreatePatientDto dto)
     {
-        return await service.AddPatientAsync(patient);
+        return await service.AddPatientAsync(dto);
     }
 
-    [HttpDelete]
-    public async Task<ApiResronce<bool>> DeletePatient(int id)
+    [HttpPut("{id:int}")]
+    public async Task<ApiResponse<bool>> UpdatePatient(int id, UpdatePatientDto dto)
     {
-        return await service.DeletePatientAsync(id);
+        return await service.UpdatePatientAsync(id, dto);
     }
 
-    [HttpGet]
-    public async Task<ApiResronce<List<Patient>>> GetPatients()
+    [HttpPatch("{id:int}/deactivate")]
+    public async Task<ApiResponse<bool>> DeactivatePatient(int id)
     {
-        return await service.GetPatientsAsync();
+        return await service.DeactivatePatientAsync(id);
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ApiResronce<Patient>> GetPatient(int id)
+    public async Task<ApiResponse<PatientDto>> GetPatient(int id)
     {
         return await service.GetPatientAsync(id);
     }
 
-    [HttpPut]
-    public async Task<ApiResronce<bool>> UpdatePatient(Patient patient)
+    [HttpGet]
+    public async Task<ApiResponse<List<PatientDto>>> GetPatients()
     {
-        return await service.UpdatePatientAsync(patient);
+        return await service.GetPatientsAsync();
     }
 }

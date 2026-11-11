@@ -6,5 +6,6 @@ public interface IRoomRepository
 {
     Task<bool> AddRoomAsync(Room room);
     Task<bool> UpdateRoomAsync(Room room);
-    Task<bool> DeleteRoomAsync(int id);
+    Task<bool> DeactivateRoomAsync(int id);
+    Task<List<Room>> GetRoomsAsync();
 }

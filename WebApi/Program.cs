@@ -1,15 +1,15 @@
 using Application.Interfaces;
 using Application.Services;
 using Domain.Interfaces;
-using Domain.Models;
 using Infrastructure.Data;
-using Infrastructure.Repository;
+using Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
+
 
 builder.Services.AddScoped<AppDbContext>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
@@ -26,4 +26,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapControllers();
 app.Run();

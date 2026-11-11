@@ -1,13 +1,13 @@
+using Application.DTOs;
 using Application.Responces;
-using Domain.Models;
 
 namespace Application.Interfaces;
 
 public interface IDoctorService
 {
-    Task<ApiResronce<bool>> AddDoctorAsync(Doctor doctor);
-    Task<ApiResronce<bool>> UpdateDoctorAsync(Doctor doctor);
-    Task<ApiResronce<bool>> DeleteDoctorAsync(int id);
-    Task<ApiResronce<Doctor?>> GetDoctorAsync(int id);
-    Task<ApiResronce<List<Doctor>>> GetDoctorsAsync();
+    Task<ApiResponse<bool>> AddDoctorAsync(CreateDoctorDto dto);
+    Task<ApiResponse<bool>> UpdateDoctorAsync(int id, UpdateDoctorDto dto);
+    Task<ApiResponse<bool>> DeactivateDoctorAsync(int id);
+    Task<ApiResponse<DoctorDto>> GetDoctorAsync(int id);
+    Task<ApiResponse<List<DoctorDto>>> GetDoctorsAsync();
 }

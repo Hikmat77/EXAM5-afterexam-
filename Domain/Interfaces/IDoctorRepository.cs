@@ -6,7 +6,7 @@ public interface IDoctorRepository
 {
     Task<bool> AddDoctorAsync(Doctor doctor);
     Task<bool> UpdateDoctorAsync(Doctor doctor);
-    Task<bool> DeleteDoctorAsync(int id);
+    Task<bool> DeactivateDoctorAsync(int id);
     Task<Doctor?> GetDoctorAsync(int id);
-    Task<List<Doctor>> GetDoctorsAsync(); 
+    Task<List<Doctor>> GetDoctorsAsync();
 }
