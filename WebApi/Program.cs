@@ -5,6 +5,7 @@ using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Serilog;
 using Serilog.Events;
+using WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,14 +22,14 @@ builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IRoomService, RoomService>();
 
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Information()
-    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-    .Enrich.FromLogContext()
-    .WriteTo.File("logs/Clinic.log", rollingInterval: RollingInterval.Day)
-    .CreateLogger();
+// Log.Logger = new LoggerConfiguration()
+//     .MinimumLevel.Information()
+//     .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+//     .Enrich.FromLogContext()
+//     .WriteTo.File("logs/Clinic.log", rollingInterval: RollingInterval.Day)
+//     .CreateLogger();
 
-builder.Host.UseSerilog();
+// builder.Host.UseSerilog();
 
 var app = builder.Build();
 
@@ -39,4 +40,5 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapControllers();
+app.UseMiddleware<RequestLoggingMiddleware>();
 app.Run();

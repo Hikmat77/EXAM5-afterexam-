@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\firuz\\OneDrive\\Desktop\\EXAM5(afterexam)\\Domain\\Domain.csproj",
+      "projectUniqueName": "C:\\Users\\firuz\\OneDrive\\Desktop\\ClinicQueue\\Domain\\Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "C:\\Users\\firuz\\OneDrive\\Desktop\\EXAM5(afterexam)\\Domain\\Domain.csproj",
+      "projectPath": "C:\\Users\\firuz\\OneDrive\\Desktop\\ClinicQueue\\Domain\\Domain.csproj",
       "packagesPath": "C:\\Users\\firuz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\firuz\\OneDrive\\Desktop\\EXAM5(afterexam)\\Domain\\obj\\",
+      "outputPath": "C:\\Users\\firuz\\OneDrive\\Desktop\\ClinicQueue\\Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\firuz\\AppData\\Roaming\\NuGet\\NuGet.Config"

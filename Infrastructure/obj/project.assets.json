@@ -241,11 +241,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\firuz\\OneDrive\\Desktop\\EXAM5(afterexam)\\Infrastructure\\Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\firuz\\OneDrive\\Desktop\\ClinicQueue\\Infrastructure\\Infrastructure.csproj",
       "projectName": "Infrastructure",
-      "projectPath": "C:\\Users\\firuz\\OneDrive\\Desktop\\EXAM5(afterexam)\\Infrastructure\\Infrastructure.csproj",
+      "projectPath": "C:\\Users\\firuz\\OneDrive\\Desktop\\ClinicQueue\\Infrastructure\\Infrastructure.csproj",
       "packagesPath": "C:\\Users\\firuz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\firuz\\OneDrive\\Desktop\\EXAM5(afterexam)\\Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\firuz\\OneDrive\\Desktop\\ClinicQueue\\Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\firuz\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -261,8 +261,8 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\firuz\\OneDrive\\Desktop\\EXAM5(afterexam)\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\firuz\\OneDrive\\Desktop\\EXAM5(afterexam)\\Domain\\Domain.csproj"
+            "C:\\Users\\firuz\\OneDrive\\Desktop\\ClinicQueue\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\firuz\\OneDrive\\Desktop\\ClinicQueue\\Domain\\Domain.csproj"
             }
           }
         }
