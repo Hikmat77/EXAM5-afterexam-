@@ -3,6 +3,7 @@ using Application.Services;
 using Domain.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 using WebApi.Middlewares;
@@ -14,7 +15,8 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddScoped<AppDbContext>();
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();

@@ -1,49 +1,67 @@
-using Dapper;
 using Domain.Interfaces;
 using Domain.Models;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
 public class PatientRepository(AppDbContext appDbContext) : IPatientRepository
 {
-    private AppDbContext _context = appDbContext;
+    private readonly AppDbContext _context = appDbContext;
+
     public async Task<bool> AddPatientAsync(Patient patient)
     {
-        using var connection = _context.Connection();
-        var query = "insert into patients (fullname, phone, birthdate, isactive) values (@fullname, @phone, @birthdate, @isactive)";
-        var res = await connection.ExecuteAsync(query, patient);
-        return res > 0;
+        _context.Patients.Add(patient);
+        return await _context.SaveChangesAsync() > 0;
     }
 
     public async Task<bool> DeactivatePatientAsync(int id)
     {
-        using var connection = _context.Connection();
-        var query = "update patients set isactive = false where id = @id";
-        var res = await connection.ExecuteAsync(query, new { id });
-        return res > 0;
+        var patient = await _context.Patients.FirstOrDefaultAsync(x => x.Id == id);
+        if (patient is null)
+        {
+            return false;
+        }
+
+        if (!patient.IsActive)
+        {
+            return true;
+        }
+
+        patient.IsActive = false;
+        return await _context.SaveChangesAsync() > 0;
     }
 
     public async Task<Patient?> GetPatientAsync(int id)
     {
-        using var connection = _context.Connection();
-        var query = "select * from patients where id = @id";
-        var patient = await connection.QuerySingleOrDefaultAsync<Patient>(query, new { id });
-        return patient;
+        return await _context.Patients.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<List<Patient>> GetPatientsAsync()
     {
-        using var connection = _context.Connection();
-        var query = "select * from patients order by id";
-        return (await connection.QueryAsync<Patient>(query)).ToList();
+        return await _context.Patients.AsNoTracking().OrderBy(x => x.Id).ToListAsync();
     }
 
     public async Task<bool> UpdatePatientAsync(Patient patient)
     {
-        using var connection = _context.Connection();
-        var query = "update patients set fullname = @fullname, phone = @phone, birthdate = @birthdate, isactive = @isactive where id = @id";
-        var res = await connection.ExecuteAsync(query, patient);
-        return res > 0;
+        var existingPatient = await _context.Patients.FirstOrDefaultAsync(x => x.Id == patient.Id);
+        if (existingPatient is null)
+        {
+            return false;
+        }
+
+        if (existingPatient.Fullname == patient.Fullname
+            && existingPatient.Phone == patient.Phone
+            && existingPatient.BirthDate == patient.BirthDate
+            && existingPatient.IsActive == patient.IsActive)
+        {
+            return true;
+        }
+
+        existingPatient.Fullname = patient.Fullname;
+        existingPatient.Phone = patient.Phone;
+        existingPatient.BirthDate = patient.BirthDate;
+        existingPatient.IsActive = patient.IsActive;
+        return await _context.SaveChangesAsync() > 0;
     }
 }

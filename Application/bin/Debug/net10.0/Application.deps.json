@@ -15,39 +15,160 @@
           "Application.dll": {}
         }
       },
-      "Dapper/2.1.89": {
+      "Microsoft.EntityFrameworkCore/10.0.15": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Abstractions": "10.0.15",
+          "Microsoft.Extensions.Caching.Memory": "10.0.15",
+          "Microsoft.Extensions.Logging": "10.0.15"
+        },
         "runtime": {
-          "lib/net10.0/Dapper.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.1.89.60231"
+          "lib/net10.0/Microsoft.EntityFrameworkCore.dll": {
+            "assemblyVersion": "10.0.15.0",
+            "fileVersion": "10.0.1526.53008"
           }
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.0": {
+      "Microsoft.EntityFrameworkCore.Abstractions/10.0.15": {
+        "runtime": {
+          "lib/net10.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
+            "assemblyVersion": "10.0.15.0",
+            "fileVersion": "10.0.1526.53008"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Relational/10.0.15": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "10.0.15",
+          "Microsoft.Extensions.Caching.Memory": "10.0.15",
+          "Microsoft.Extensions.Configuration.Abstractions": "10.0.15",
+          "Microsoft.Extensions.Logging": "10.0.15"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.EntityFrameworkCore.Relational.dll": {
+            "assemblyVersion": "10.0.15.0",
+            "fileVersion": "10.0.1526.53008"
+          }
+        }
+      },
+      "Microsoft.Extensions.Caching.Abstractions/10.0.15": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "10.0.15"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Caching.Abstractions.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.1526.53008"
+          }
+        }
+      },
+      "Microsoft.Extensions.Caching.Memory/10.0.15": {
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Abstractions": "10.0.15",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.15",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.15",
+          "Microsoft.Extensions.Options": "10.0.15",
+          "Microsoft.Extensions.Primitives": "10.0.15"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Caching.Memory.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.1526.53008"
+          }
+        }
+      },
+      "Microsoft.Extensions.Configuration.Abstractions/10.0.15": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "10.0.15"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.1526.53008"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection/10.0.15": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.15"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.1526.53008"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.15": {
         "runtime": {
           "lib/net10.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
             "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.25.52411"
+            "fileVersion": "10.0.1526.53008"
           }
         }
       },
-      "Microsoft.Extensions.Logging.Abstractions/10.0.0": {
+      "Microsoft.Extensions.Logging/10.0.15": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.0"
+          "Microsoft.Extensions.DependencyInjection": "10.0.15",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.15",
+          "Microsoft.Extensions.Options": "10.0.15"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Logging.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.1526.53008"
+          }
+        }
+      },
+      "Microsoft.Extensions.Logging.Abstractions/10.0.15": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.15"
         },
         "runtime": {
           "lib/net10.0/Microsoft.Extensions.Logging.Abstractions.dll": {
             "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.25.52411"
+            "fileVersion": "10.0.1526.53008"
+          }
+        }
+      },
+      "Microsoft.Extensions.Options/10.0.15": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.15",
+          "Microsoft.Extensions.Primitives": "10.0.15"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Options.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.1526.53008"
+          }
+        }
+      },
+      "Microsoft.Extensions.Primitives/10.0.15": {
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Primitives.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.1526.53008"
           }
         }
       },
       "Npgsql/10.0.3": {
         "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.0"
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.15"
         },
         "runtime": {
           "lib/net10.0/Npgsql.dll": {
+            "assemblyVersion": "10.0.3.0",
+            "fileVersion": "10.0.3.0"
+          }
+        }
+      },
+      "Npgsql.EntityFrameworkCore.PostgreSQL/10.0.3": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "10.0.15",
+          "Microsoft.EntityFrameworkCore.Relational": "10.0.15",
+          "Npgsql": "10.0.3"
+        },
+        "runtime": {
+          "lib/net10.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
             "assemblyVersion": "10.0.3.0",
             "fileVersion": "10.0.3.0"
           }
@@ -63,9 +184,10 @@
       },
       "Infrastructure/1.0.0": {
         "dependencies": {
-          "Dapper": "2.1.89",
           "Domain": "1.0.0",
-          "Npgsql": "10.0.3"
+          "Microsoft.EntityFrameworkCore": "10.0.15",
+          "Microsoft.EntityFrameworkCore.Relational": "10.0.15",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.3"
         },
         "runtime": {
           "Infrastructure.dll": {
@@ -82,26 +204,89 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Dapper/2.1.89": {
+    "Microsoft.EntityFrameworkCore/10.0.15": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-1VjFE664wnxvuhlgP8kS4PeFFF4jqD3VkbIHW6Zlc52zuibgcz5ICnIHcQXlTp6pURpPNGLV0ZpNe5x9KePJnA==",
-      "path": "dapper/2.1.89",
-      "hashPath": "dapper.2.1.89.nupkg.sha512"
+      "sha512": "sha512-cp0ocqFrk6SXPy5xAI4gf2RlTk7jO4LcybDGWKp5F5zjPKyn2fEulElXIrCWreQFe8/4u01xoVhscrabhOOnhw==",
+      "path": "microsoft.entityframeworkcore/10.0.15",
+      "hashPath": "microsoft.entityframeworkcore.10.0.15.nupkg.sha512"
     },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.0": {
+    "Microsoft.EntityFrameworkCore.Abstractions/10.0.15": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-L3AdmZ1WOK4XXT5YFPEwyt0ep6l8lGIPs7F5OOBZc77Zqeo01Of7XXICy47628sdVl0v/owxYJTe86DTgFwKCA==",
-      "path": "microsoft.extensions.dependencyinjection.abstractions/10.0.0",
-      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.10.0.0.nupkg.sha512"
+      "sha512": "sha512-aLHlTnngp1CcWF5gWbqNwcfROjINCaQVKoySCFpl8O/EQaCdvtW+miv9KoSpKDtWIN+W7lZ8yr4KnbK3hp9oYQ==",
+      "path": "microsoft.entityframeworkcore.abstractions/10.0.15",
+      "hashPath": "microsoft.entityframeworkcore.abstractions.10.0.15.nupkg.sha512"
     },
-    "Microsoft.Extensions.Logging.Abstractions/10.0.0": {
+    "Microsoft.EntityFrameworkCore.Relational/10.0.15": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-FU/IfjDfwaMuKr414SSQNTIti/69bHEMb+QKrskRb26oVqpx3lNFXMjs/RC9ZUuhBhcwDM2BwOgoMw+PZ+beqQ==",
-      "path": "microsoft.extensions.logging.abstractions/10.0.0",
-      "hashPath": "microsoft.extensions.logging.abstractions.10.0.0.nupkg.sha512"
+      "sha512": "sha512-8rEj7IN4+cW1fXkENqCsHeqDrty3izIvWIw6YlXA3sYLPpie1S1MMAWrF3/QjPSI9AWL3sXT6tQqBeNeX6QWEw==",
+      "path": "microsoft.entityframeworkcore.relational/10.0.15",
+      "hashPath": "microsoft.entityframeworkcore.relational.10.0.15.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Caching.Abstractions/10.0.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hzquYYxIDAOh5DZjqfWhm9jUILFguywE8KCBg+Sp4WYY1wND67qWllGXY5h2DrKneSGlqdFa0njngVT6sT+Brg==",
+      "path": "microsoft.extensions.caching.abstractions/10.0.15",
+      "hashPath": "microsoft.extensions.caching.abstractions.10.0.15.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Caching.Memory/10.0.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uTfEHyTAxSqly3dCfqG5jVh5LZBU3pdipc5I1XLjPB7tjPV6ZejQjdiARt40X6B2yvf/4/v7hNT5D/veuf6zRA==",
+      "path": "microsoft.extensions.caching.memory/10.0.15",
+      "hashPath": "microsoft.extensions.caching.memory.10.0.15.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration.Abstractions/10.0.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0vztB/x4zuR/KT82cgTiiw9DqigfT1FjBgq9FjEFvJUgeacjTG4e7hWD2PCRXzL2kWWl/vBAwtXddIRV3AIU6Q==",
+      "path": "microsoft.extensions.configuration.abstractions/10.0.15",
+      "hashPath": "microsoft.extensions.configuration.abstractions.10.0.15.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection/10.0.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7DUIgHeJpBs1RG0hYwWDOImXP03+uPrV5KtyUPxrZsiWadlg95aYijNKCZ2j2UmufQAmN6XEQfx4B/J6TuE7lg==",
+      "path": "microsoft.extensions.dependencyinjection/10.0.15",
+      "hashPath": "microsoft.extensions.dependencyinjection.10.0.15.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KczR2nV7ooeimtZxAawPht/FJUHnX+uoWy7y4pba+iaRQBwUM2NwtiqZg+/FpZDHUf2RkkzveGkhMTWDNzmDUA==",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/10.0.15",
+      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.10.0.15.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Logging/10.0.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Vya6t+hqCLeoZsbsJo5FzrEoOTK7syIeuaxLl3F8QagD3sXVxAQgmVEq5+jaA4gQ4yreg27fZ8gJH96bWtxoBQ==",
+      "path": "microsoft.extensions.logging/10.0.15",
+      "hashPath": "microsoft.extensions.logging.10.0.15.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Logging.Abstractions/10.0.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-s5xzXGWqqlmmThMnQ1rnmL7QLwbluB2JqX9NaK8C9HPuHzN7kfmiddTRbwts5rQssATkh2B18RrofjeUD8g14A==",
+      "path": "microsoft.extensions.logging.abstractions/10.0.15",
+      "hashPath": "microsoft.extensions.logging.abstractions.10.0.15.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Options/10.0.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vF3ghTChyyX3BDqRFUurk+fn8vZySFmWHm4vIeeOQbBrjnPqWrr5ceyCb1jrGpMasYdcK9IuJskLVQZWBfNxCg==",
+      "path": "microsoft.extensions.options/10.0.15",
+      "hashPath": "microsoft.extensions.options.10.0.15.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Primitives/10.0.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NjzLiZ1/bYx8VwLqHxNnCfDTQQbCY7P1dwT7JM5FiANiaSfI6UKHi0/sla+jyRbOIbPAMJkhWQ/9pH3tMf+IrQ==",
+      "path": "microsoft.extensions.primitives/10.0.15",
+      "hashPath": "microsoft.extensions.primitives.10.0.15.nupkg.sha512"
     },
     "Npgsql/10.0.3": {
       "type": "package",
@@ -109,6 +294,13 @@
       "sha512": "sha512-7nb5YzXuvWWJxB0J8DiyL3we+X4FOctZrt0fIBnucOIaIevFEEwGQVZKtiu9olXdlNAK1eNgqSral6r/jlhI4w==",
       "path": "npgsql/10.0.3",
       "hashPath": "npgsql.10.0.3.nupkg.sha512"
+    },
+    "Npgsql.EntityFrameworkCore.PostgreSQL/10.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IPGrrZnRkuW7OlHDhUESZz4G5DLkW7Nej/O3Cx+0iTsgyU5XJxBgpsvTHLloo3WWuAKKbDHXBvWPVkX1deRh1Q==",
+      "path": "npgsql.entityframeworkcore.postgresql/10.0.3",
+      "hashPath": "npgsql.entityframeworkcore.postgresql.10.0.3.nupkg.sha512"
     },
     "Domain/1.0.0": {
       "type": "project",

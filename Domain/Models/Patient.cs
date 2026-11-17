@@ -7,5 +7,5 @@ public class Patient
     public string Phone { get; set; } = string.Empty;
     public DateTime BirthDate { get; set; }
     public bool IsActive { get; set; }
-    public DateTime CreateAt { get; set; }
+    public DateTime CreateAt { get; set; } = DateTime.UtcNow;
 }
