@@ -44,12 +44,18 @@ namespace Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("isactive");
 
+                    b.Property<int?>("RoomId")
+                        .HasColumnType("integer")
+                        .HasColumnName("roomid");
+
                     b.Property<string>("Specialty")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("specialty");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
 
                     b.ToTable("doctors", (string)null);
                 });
@@ -113,6 +119,21 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("rooms", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Models.Doctor", b =>
+                {
+                    b.HasOne("Domain.Models.Room", "Room")
+                        .WithMany("Doctors")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("Domain.Models.Room", b =>
+                {
+                    b.Navigation("Doctors");
                 });
 #pragma warning restore 612, 618
         }

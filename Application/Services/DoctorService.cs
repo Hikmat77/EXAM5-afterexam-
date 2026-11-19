@@ -16,7 +16,8 @@ public class DoctorService(IDoctorRepository doctorRepository) : IDoctorService
         {
             Fullname = dto.Fullname,
             Specialty = dto.Specialty,
-            HireDat = dto.HireDat
+            HireDat = dto.HireDat,
+            RoomId = dto.RoomId
         };
         var res = await repository.AddDoctorAsync(doctor);
         return res==true
@@ -41,7 +42,14 @@ public class DoctorService(IDoctorRepository doctorRepository) : IDoctorService
             Fullname = doctor.Fullname,
             Specialty = doctor.Specialty,
             IsActive = doctor.IsActive,
-            HireDat = doctor.HireDat
+            HireDat = doctor.HireDat,
+            RoomId = doctor.RoomId,
+            Room = doctor.Room is null ? null : new RoomDto()
+            {
+                Id = doctor.Room.Id,
+                Name = doctor.Room.Name,
+                IsActive = doctor.Room.IsActive
+            }
         };
         return res!=null
         ? new ApiResponse<DoctorDto>(HttpStatusCode.OK, "Doctor with given id.", res)
@@ -57,7 +65,14 @@ public class DoctorService(IDoctorRepository doctorRepository) : IDoctorService
             Fullname = x.Fullname,
             Specialty = x.Specialty,
             IsActive = x.IsActive,
-            HireDat = x.HireDat
+            HireDat = x.HireDat,
+            RoomId = x.RoomId,
+            Room = x.Room is null ? null : new RoomDto()
+            {
+                Id = x.Room.Id,
+                Name = x.Room.Name,
+                IsActive = x.Room.IsActive
+            }
         }).ToList();
         return new ApiResponse<List<DoctorDto>>(HttpStatusCode.OK, "List of doctors.", res);
     }
@@ -70,7 +85,8 @@ public class DoctorService(IDoctorRepository doctorRepository) : IDoctorService
             Fullname = dto.Fullname,
             Specialty = dto.Specialty,
             IsActive = dto.IsActive,
-            HireDat = dto.HireDat
+            HireDat = dto.HireDat,
+            RoomId = dto.RoomId
         };
         var res = await repository.UpdateDoctorAsync(doctor);
         return res==true

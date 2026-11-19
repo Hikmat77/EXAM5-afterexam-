@@ -7,4 +7,6 @@ public class DoctorDto
     public string Specialty {get; set;}=null!;
     public bool IsActive {get; set;}
     public DateTime HireDat {get; set;}
+    public int? RoomId {get; set;}
+    public RoomDto? Room {get; set;}
 }

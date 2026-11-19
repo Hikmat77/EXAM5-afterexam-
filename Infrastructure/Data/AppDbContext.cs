@@ -19,6 +19,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.Property(x => x.Specialty).HasColumnName("specialty");
             entity.Property(x => x.IsActive).HasColumnName("isactive");
             entity.Property(x => x.HireDat).HasColumnName("hiredat");
+            entity.Property(x => x.RoomId).HasColumnName("roomid");
+            entity.HasOne(x => x.Room)
+                .WithMany(x => x.Doctors)
+                .HasForeignKey(x => x.RoomId)
+                .OnDelete(DeleteBehavior.SetNull);
         });
 
         modelBuilder.Entity<Patient>(entity =>

@@ -6,4 +6,5 @@ public class UpdateDoctorDto
     public string Specialty {get; set;}=null!;
     public bool IsActive {get; set;}
     public DateTime HireDat {get; set;}
+    public int? RoomId {get; set;}
 }

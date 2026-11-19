@@ -34,12 +34,19 @@ public class DoctorRepository(AppDbContext appDbContext) : IDoctorRepository
 
     public async Task<Doctor?> GetDoctorAsync(int id)
     {
-        return await _context.Doctors.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+        return await _context.Doctors
+            .AsNoTracking()
+            .Include(x => x.Room)
+            .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<List<Doctor>> GetDoctorsAsync()
     {
-        return await _context.Doctors.AsNoTracking().OrderBy(x => x.Id).ToListAsync();
+        return await _context.Doctors
+            .AsNoTracking()
+            .Include(x => x.Room)
+            .OrderBy(x => x.Id)
+            .ToListAsync();
     }
 
     public async Task<bool> UpdateDoctorAsync(Doctor doctor)
@@ -53,7 +60,8 @@ public class DoctorRepository(AppDbContext appDbContext) : IDoctorRepository
         if (existingDoctor.Fullname == doctor.Fullname
             && existingDoctor.Specialty == doctor.Specialty
             && existingDoctor.IsActive == doctor.IsActive
-            && existingDoctor.HireDat == doctor.HireDat)
+            && existingDoctor.HireDat == doctor.HireDat
+            && existingDoctor.RoomId == doctor.RoomId)
         {
             return true;
         }
@@ -62,6 +70,7 @@ public class DoctorRepository(AppDbContext appDbContext) : IDoctorRepository
         existingDoctor.Specialty = doctor.Specialty;
         existingDoctor.IsActive = doctor.IsActive;
         existingDoctor.HireDat = doctor.HireDat;
+        existingDoctor.RoomId = doctor.RoomId;
         return await _context.SaveChangesAsync() > 0;
     }
 }
