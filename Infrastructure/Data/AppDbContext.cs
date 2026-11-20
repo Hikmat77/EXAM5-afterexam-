@@ -11,40 +11,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Doctor>(entity =>
-        {
-            entity.ToTable("doctors");
-            entity.Property(x => x.Id).HasColumnName("id");
-            entity.Property(x => x.Fullname).HasColumnName("fullname");
-            entity.Property(x => x.Specialty).HasColumnName("specialty");
-            entity.Property(x => x.IsActive).HasColumnName("isactive");
-            entity.Property(x => x.HireDat).HasColumnName("hiredat");
-            entity.Property(x => x.RoomId).HasColumnName("roomid");
-            entity.HasOne(x => x.Room)
-                .WithMany(x => x.Doctors)
-                .HasForeignKey(x => x.RoomId)
-                .OnDelete(DeleteBehavior.SetNull);
-        });
-
-        modelBuilder.Entity<Patient>(entity =>
-        {
-            entity.ToTable("patients");
-            entity.Property(x => x.Id).HasColumnName("id");
-            entity.Property(x => x.Fullname).HasColumnName("fullname");
-            entity.Property(x => x.Phone).HasColumnName("phone");
-            entity.Property(x => x.BirthDate).HasColumnName("birthdate");
-            entity.Property(x => x.IsActive).HasColumnName("isactive");
-            entity.Property(x => x.CreateAt)
-                .HasColumnName("createat")
-                .HasDefaultValueSql("CURRENT_TIMESTAMP");
-        });
-
-        modelBuilder.Entity<Room>(entity =>
-        {
-            entity.ToTable("rooms");
-            entity.Property(x => x.Id).HasColumnName("id");
-            entity.Property(x => x.Name).HasColumnName("name");
-            entity.Property(x => x.IsActive).HasColumnName("isactive");
-        });
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 }
