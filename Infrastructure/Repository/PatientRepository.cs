@@ -38,7 +38,7 @@ public class PatientRepository(AppDbContext appDbContext) : IPatientRepository
         return await _context.Patients.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<List<Patient>> GetPatientsAsync(PatientFilter filter)
+    public async Task<PagedResult<Patient>> GetPatientsAsync(PatientFilter filter)
     {
         var query = _context.Patients.AsNoTracking().AsQueryable();
 
@@ -59,9 +59,15 @@ public class PatientRepository(AppDbContext appDbContext) : IPatientRepository
             query = query.Where(x => x.IsActive == filter.IsActive.Value);
         }
 
-        return await query
+        var totalCount = await query.CountAsync();
+        var skip = (int)Math.Min((long)(filter.PageNumber - 1) * filter.PageSize, int.MaxValue);
+        var items = await query
             .OrderBy(x => x.Id)
+            .Skip(skip)
+            .Take(filter.PageSize)
             .ToListAsync();
+
+        return new PagedResult<Patient>(items, totalCount, filter.PageNumber, filter.PageSize);
     }
 
     public async Task<bool> UpdatePatientAsync(Patient patient)

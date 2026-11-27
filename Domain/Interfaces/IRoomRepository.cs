@@ -8,5 +8,5 @@ public interface IRoomRepository
     Task<bool> AddRoomAsync(Room room);
     Task<bool> UpdateRoomAsync(Room room);
     Task<bool> DeactivateRoomAsync(int id);
-    Task<List<Room>> GetRoomsAsync(RoomFilter filter);
+    Task<PagedResult<Room>> GetRoomsAsync(RoomFilter filter);
 }

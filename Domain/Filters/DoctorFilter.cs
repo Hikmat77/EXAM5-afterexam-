@@ -1,6 +1,6 @@
 namespace Domain.Filters;
 
-public class DoctorFilter
+public class DoctorFilter : PaginationParameters
 {
     public string? Fullname { get; set; }
     public string? Specialty { get; set; }

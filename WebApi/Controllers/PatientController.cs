@@ -16,35 +16,35 @@ public class PatientController(
     private ILogger<PatientController> _logger = logger;
 
     [HttpPost]
-    public async Task<ApiResponse<bool>> AddPatient(CreatePatientDto dto)
+    public async Task<PagedResponse<bool>> AddPatient(CreatePatientDto dto)
     {
         _logger.LogInformation("POST patients {date}", DateTime.Now);
         return await service.AddPatientAsync(dto);
     }
 
     [HttpPut("{id:int}")]
-    public async Task<ApiResponse<bool>> UpdatePatient(int id, UpdatePatientDto dto)
+    public async Task<PagedResponse<bool>> UpdatePatient(int id, UpdatePatientDto dto)
     {
         _logger.LogInformation("PUT patients/{id} {date}", id, DateTime.Now);
         return await service.UpdatePatientAsync(id, dto);
     }
 
     [HttpPatch("{id:int}/deactivate")]
-    public async Task<ApiResponse<bool>> DeactivatePatient(int id)
+    public async Task<PagedResponse<bool>> DeactivatePatient(int id)
     {
         _logger.LogInformation("PATCH patients/{id}/deactivate {date}", id, DateTime.Now);
         return await service.DeactivatePatientAsync(id);
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ApiResponse<PatientDto>> GetPatient(int id)
+    public async Task<PagedResponse<PatientDto>> GetPatient(int id)
     {
         _logger.LogInformation("GET patients/{id} {date}", id, DateTime.Now);
         return await service.GetPatientAsync(id);
     }
 
     [HttpGet]
-    public async Task<ApiResponse<List<PatientDto>>> GetPatients([FromQuery] PatientFilter filter)
+    public async Task<PagedResponse<List<PatientDto>>> GetPatients([FromQuery] PatientFilter filter)
     {
         _logger.LogInformation("GET patients {date}", DateTime.Now);
         return await service.GetPatientsAsync(filter);

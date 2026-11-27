@@ -9,5 +9,5 @@ public interface IPatientRepository
     Task<bool> UpdatePatientAsync(Patient patient);
     Task<bool> DeactivatePatientAsync(int id);
     Task<Patient?> GetPatientAsync(int id);
-    Task<List<Patient>> GetPatientsAsync(PatientFilter filter);
+    Task<PagedResult<Patient>> GetPatientsAsync(PatientFilter filter);
 }

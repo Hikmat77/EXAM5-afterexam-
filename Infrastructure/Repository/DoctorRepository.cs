@@ -41,7 +41,7 @@ public class DoctorRepository(AppDbContext appDbContext) : IDoctorRepository
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<List<Doctor>> GetDoctorsAsync(DoctorFilter filter)
+    public async Task<PagedResult<Doctor>> GetDoctorsAsync(DoctorFilter filter)
     {
         var query = _context.Doctors
             .AsNoTracking()
@@ -70,9 +70,15 @@ public class DoctorRepository(AppDbContext appDbContext) : IDoctorRepository
             query = query.Where(x => x.IsActive == filter.IsActive.Value);
         }
 
-        return await query
+        var totalCount = await query.CountAsync();
+        var skip = (int)Math.Min((long)(filter.PageNumber - 1) * filter.PageSize, int.MaxValue);
+        var items = await query
             .OrderBy(x => x.Id)
+            .Skip(skip)
+            .Take(filter.PageSize)
             .ToListAsync();
+
+        return new PagedResult<Doctor>(items, totalCount, filter.PageNumber, filter.PageSize);
     }
 
     public async Task<bool> UpdateDoctorAsync(Doctor doctor)

@@ -9,5 +9,5 @@ public interface IDoctorRepository
     Task<bool> UpdateDoctorAsync(Doctor doctor);
     Task<bool> DeactivateDoctorAsync(int id);
     Task<Doctor?> GetDoctorAsync(int id);
-    Task<List<Doctor>> GetDoctorsAsync(DoctorFilter filter);
+    Task<PagedResult<Doctor>> GetDoctorsAsync(DoctorFilter filter);
 }

@@ -11,7 +11,7 @@ namespace Application.Services;
 public class DoctorService(IDoctorRepository doctorRepository) : IDoctorService
 {
     private IDoctorRepository repository = doctorRepository;
-    public async Task<ApiResponse<bool>> AddDoctorAsync(CreateDoctorDto dto)
+    public async Task<PagedResponse<bool>> AddDoctorAsync(CreateDoctorDto dto)
     {
         var doctor = new Doctor()
         {
@@ -22,19 +22,19 @@ public class DoctorService(IDoctorRepository doctorRepository) : IDoctorService
         };
         var res = await repository.AddDoctorAsync(doctor);
         return res==true
-        ? new ApiResponse<bool>(HttpStatusCode.OK, "Added!", res)
-        : new ApiResponse<bool>(HttpStatusCode.InternalServerError, "Not added.", res);
+        ? new PagedResponse<bool>(HttpStatusCode.OK, "Added!", res)
+        : new PagedResponse<bool>(HttpStatusCode.InternalServerError, "Not added.", res);
     }
 
-    public async Task<ApiResponse<bool>> DeactivateDoctorAsync(int id)
+    public async Task<PagedResponse<bool>> DeactivateDoctorAsync(int id)
     {
         var res = await repository.DeactivateDoctorAsync(id);
         return res==true
-        ? new ApiResponse<bool>(HttpStatusCode.OK, "Deactivated!", res)
-        : new ApiResponse<bool>(HttpStatusCode.InternalServerError, "Not deactivated.", res);
+        ? new PagedResponse<bool>(HttpStatusCode.OK, "Deactivated!", res)
+        : new PagedResponse<bool>(HttpStatusCode.InternalServerError, "Not deactivated.", res);
     }
 
-    public async Task<ApiResponse<DoctorDto>> GetDoctorAsync(int id)
+    public async Task<PagedResponse<DoctorDto>> GetDoctorAsync(int id)
     {
         var doctor = await repository.GetDoctorAsync(id);
         var res = doctor==null ? null : new DoctorDto()
@@ -53,14 +53,14 @@ public class DoctorService(IDoctorRepository doctorRepository) : IDoctorService
             }
         };
         return res!=null
-        ? new ApiResponse<DoctorDto>(HttpStatusCode.OK, "Doctor with given id.", res)
-        : new ApiResponse<DoctorDto>(HttpStatusCode.NotFound, "No doctor with given id.", res!);
+        ? new PagedResponse<DoctorDto>(HttpStatusCode.OK, "Doctor with given id.", res)
+        : new PagedResponse<DoctorDto>(HttpStatusCode.NotFound, "No doctor with given id.");
     }
 
-    public async Task<ApiResponse<List<DoctorDto>>> GetDoctorsAsync(DoctorFilter filter)
+    public async Task<PagedResponse<List<DoctorDto>>> GetDoctorsAsync(DoctorFilter filter)
     {
         var doctors = await repository.GetDoctorsAsync(filter);
-        var res = doctors.Select(x=>new DoctorDto()
+        var items = doctors.Items.Select(x=>new DoctorDto()
         {
             Id = x.Id,
             Fullname = x.Fullname,
@@ -75,10 +75,15 @@ public class DoctorService(IDoctorRepository doctorRepository) : IDoctorService
                 IsActive = x.Room.IsActive
             }
         }).ToList();
-        return new ApiResponse<List<DoctorDto>>(HttpStatusCode.OK, "List of doctors.", res);
+        return new PagedResponse<List<DoctorDto>>(
+            items,
+            doctors.TotalCount,
+            doctors.PageNumber,
+            doctors.PageSize,
+            "List of doctors.");
     }
 
-    public async Task<ApiResponse<bool>> UpdateDoctorAsync(int id, UpdateDoctorDto dto)
+    public async Task<PagedResponse<bool>> UpdateDoctorAsync(int id, UpdateDoctorDto dto)
     {
         var doctor = new Doctor()
         {
@@ -91,7 +96,7 @@ public class DoctorService(IDoctorRepository doctorRepository) : IDoctorService
         };
         var res = await repository.UpdateDoctorAsync(doctor);
         return res==true
-        ? new ApiResponse<bool>(HttpStatusCode.OK, "Updated!", res)
-        : new ApiResponse<bool>(HttpStatusCode.InternalServerError, "Not updated.", res);
+        ? new PagedResponse<bool>(HttpStatusCode.OK, "Updated!", res)
+        : new PagedResponse<bool>(HttpStatusCode.InternalServerError, "Not updated.", res);
     }
 }

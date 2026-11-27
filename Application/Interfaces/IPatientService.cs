@@ -6,9 +6,9 @@ namespace Application.Interfaces;
 
 public interface IPatientService
 {
-    Task<ApiResponse<bool>> AddPatientAsync(CreatePatientDto dto);
-    Task<ApiResponse<bool>> UpdatePatientAsync(int id, UpdatePatientDto dto);
-    Task<ApiResponse<bool>> DeactivatePatientAsync(int id);
-    Task<ApiResponse<PatientDto>> GetPatientAsync(int id);
-    Task<ApiResponse<List<PatientDto>>> GetPatientsAsync(PatientFilter filter);
+    Task<PagedResponse<bool>> AddPatientAsync(CreatePatientDto dto);
+    Task<PagedResponse<bool>> UpdatePatientAsync(int id, UpdatePatientDto dto);
+    Task<PagedResponse<bool>> DeactivatePatientAsync(int id);
+    Task<PagedResponse<PatientDto>> GetPatientAsync(int id);
+    Task<PagedResponse<List<PatientDto>>> GetPatientsAsync(PatientFilter filter);
 }

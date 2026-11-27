@@ -16,28 +16,28 @@ public class RoomController(
     private ILogger<RoomController> _logger = logger;
 
     [HttpPost]
-    public async Task<ApiResponse<bool>> AddRoom(CreateRoomDto dto)
+    public async Task<PagedResponse<bool>> AddRoom(CreateRoomDto dto)
     {
         _logger.LogInformation("POST rooms {date}", DateTime.Now);
         return await service.AddRoomAsync(dto);
     }
 
     [HttpPut("{id:int}")]
-    public async Task<ApiResponse<bool>> UpdateRoom(int id, UpdateRoomDto dto)
+    public async Task<PagedResponse<bool>> UpdateRoom(int id, UpdateRoomDto dto)
     {
         _logger.LogInformation("PUT rooms/{id} {date}", id, DateTime.Now);
         return await service.UpdateRoomAsync(id, dto);
     }
 
     [HttpPatch("{id:int}/deactivate")]
-    public async Task<ApiResponse<bool>> DeactivateRoom(int id)
+    public async Task<PagedResponse<bool>> DeactivateRoom(int id)
     {
         _logger.LogInformation("PATCH rooms/{id}/deactivate {date}", id, DateTime.Now);
         return await service.DeactivateRoomAsync(id);
     }
 
     [HttpGet]
-    public async Task<ApiResponse<List<RoomDto>>> GetRooms([FromQuery] RoomFilter filter)
+    public async Task<PagedResponse<List<RoomDto>>> GetRooms([FromQuery] RoomFilter filter)
     {
         _logger.LogInformation("GET rooms {date}", DateTime.Now);
         return await service.GetRoomsAsync(filter);

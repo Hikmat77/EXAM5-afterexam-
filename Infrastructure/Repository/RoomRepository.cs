@@ -33,7 +33,7 @@ public class RoomRepository(AppDbContext appDbContext) : IRoomRepository
         return await _context.SaveChangesAsync() > 0;
     }
 
-    public async Task<List<Room>> GetRoomsAsync(RoomFilter filter)
+    public async Task<PagedResult<Room>> GetRoomsAsync(RoomFilter filter)
     {
         var query = _context.Rooms.AsNoTracking().AsQueryable();
 
@@ -48,9 +48,15 @@ public class RoomRepository(AppDbContext appDbContext) : IRoomRepository
             query = query.Where(x => x.IsActive == filter.IsActive.Value);
         }
 
-        return await query
+        var totalCount = await query.CountAsync();
+        var skip = (int)Math.Min((long)(filter.PageNumber - 1) * filter.PageSize, int.MaxValue);
+        var items = await query
             .OrderBy(x => x.Id)
+            .Skip(skip)
+            .Take(filter.PageSize)
             .ToListAsync();
+
+        return new PagedResult<Room>(items, totalCount, filter.PageNumber, filter.PageSize);
     }
 
     public async Task<bool> UpdateRoomAsync(Room room)

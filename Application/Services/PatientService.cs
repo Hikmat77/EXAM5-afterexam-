@@ -11,7 +11,7 @@ namespace Application.Services;
 public class PatientService(IPatientRepository patientRepository) : IPatientService
 {
     private IPatientRepository repository = patientRepository;
-    public async Task<ApiResponse<bool>> AddPatientAsync(CreatePatientDto dto)
+    public async Task<PagedResponse<bool>> AddPatientAsync(CreatePatientDto dto)
     {
         var patient = new Patient()
         {
@@ -21,19 +21,19 @@ public class PatientService(IPatientRepository patientRepository) : IPatientServ
         };
         var res = await repository.AddPatientAsync(patient);
         return res==true
-        ? new ApiResponse<bool>(HttpStatusCode.OK, "Added!", res)
-        : new ApiResponse<bool>(HttpStatusCode.InternalServerError, "Not added.", res);
+        ? new PagedResponse<bool>(HttpStatusCode.OK, "Added!", res)
+        : new PagedResponse<bool>(HttpStatusCode.InternalServerError, "Not added.", res);
     }
 
-    public async Task<ApiResponse<bool>> DeactivatePatientAsync(int id)
+    public async Task<PagedResponse<bool>> DeactivatePatientAsync(int id)
     {
         var res = await repository.DeactivatePatientAsync(id);
         return res==true
-        ? new ApiResponse<bool>(HttpStatusCode.OK, "Deactivated!", res)
-        : new ApiResponse<bool>(HttpStatusCode.InternalServerError, "Not deactivated.", res);
+        ? new PagedResponse<bool>(HttpStatusCode.OK, "Deactivated!", res)
+        : new PagedResponse<bool>(HttpStatusCode.InternalServerError, "Not deactivated.", res);
     }
 
-    public async Task<ApiResponse<PatientDto>> GetPatientAsync(int id)
+    public async Task<PagedResponse<PatientDto>> GetPatientAsync(int id)
     {
         var patient = await repository.GetPatientAsync(id);
         var res = patient==null ? null : new PatientDto()
@@ -46,14 +46,14 @@ public class PatientService(IPatientRepository patientRepository) : IPatientServ
             CreatedAt = patient.CreateAt
         };
         return res!=null
-        ? new ApiResponse<PatientDto>(HttpStatusCode.OK, "Patient with given id.", res)
-        : new ApiResponse<PatientDto>(HttpStatusCode.NotFound, "No patient with given id.", res!);
+        ? new PagedResponse<PatientDto>(HttpStatusCode.OK, "Patient with given id.", res)
+        : new PagedResponse<PatientDto>(HttpStatusCode.NotFound, "No patient with given id.");
     }
 
-    public async Task<ApiResponse<List<PatientDto>>> GetPatientsAsync(PatientFilter filter)
+    public async Task<PagedResponse<List<PatientDto>>> GetPatientsAsync(PatientFilter filter)
     {
         var patients = await repository.GetPatientsAsync(filter);
-        var res = patients.Select(x=>new PatientDto()
+        var items = patients.Items.Select(x=>new PatientDto()
         {
             Id = x.Id,
             Fullname = x.Fullname,
@@ -62,10 +62,15 @@ public class PatientService(IPatientRepository patientRepository) : IPatientServ
             IsActive = x.IsActive,
             CreatedAt = x.CreateAt
         }).ToList();
-        return new ApiResponse<List<PatientDto>>(HttpStatusCode.OK, "List of patients.", res);
+        return new PagedResponse<List<PatientDto>>(
+            items,
+            patients.TotalCount,
+            patients.PageNumber,
+            patients.PageSize,
+            "List of patients.");
     }
 
-    public async Task<ApiResponse<bool>> UpdatePatientAsync(int id, UpdatePatientDto dto)
+    public async Task<PagedResponse<bool>> UpdatePatientAsync(int id, UpdatePatientDto dto)
     {
         var patient = new Patient()
         {
@@ -77,7 +82,7 @@ public class PatientService(IPatientRepository patientRepository) : IPatientServ
         };
         var res = await repository.UpdatePatientAsync(patient);
         return res==true
-        ? new ApiResponse<bool>(HttpStatusCode.OK, "Updated!", res)
-        : new ApiResponse<bool>(HttpStatusCode.InternalServerError, "Not updated.", res);
+        ? new PagedResponse<bool>(HttpStatusCode.OK, "Updated!", res)
+        : new PagedResponse<bool>(HttpStatusCode.InternalServerError, "Not updated.", res);
     }
 }
