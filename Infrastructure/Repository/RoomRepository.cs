@@ -1,5 +1,6 @@
 using Domain.Interfaces;
 using Domain.Models;
+using Domain.Filters;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,9 +33,24 @@ public class RoomRepository(AppDbContext appDbContext) : IRoomRepository
         return await _context.SaveChangesAsync() > 0;
     }
 
-    public async Task<List<Room>> GetRoomsAsync()
+    public async Task<List<Room>> GetRoomsAsync(RoomFilter filter)
     {
-        return await _context.Rooms.AsNoTracking().OrderBy(x => x.Id).ToListAsync();
+        var query = _context.Rooms.AsNoTracking().AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(filter.Name))
+        {
+            var name = filter.Name.Trim();
+            query = query.Where(x => x.Name.Contains(name));
+        }
+
+        if (filter.IsActive.HasValue)
+        {
+            query = query.Where(x => x.IsActive == filter.IsActive.Value);
+        }
+
+        return await query
+            .OrderBy(x => x.Id)
+            .ToListAsync();
     }
 
     public async Task<bool> UpdateRoomAsync(Room room)

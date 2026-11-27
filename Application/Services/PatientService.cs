@@ -4,6 +4,7 @@ using Application.Interfaces;
 using Application.Responces;
 using Domain.Interfaces;
 using Domain.Models;
+using Domain.Filters;
 
 namespace Application.Services;
 
@@ -49,9 +50,9 @@ public class PatientService(IPatientRepository patientRepository) : IPatientServ
         : new ApiResponse<PatientDto>(HttpStatusCode.NotFound, "No patient with given id.", res!);
     }
 
-    public async Task<ApiResponse<List<PatientDto>>> GetPatientsAsync()
+    public async Task<ApiResponse<List<PatientDto>>> GetPatientsAsync(PatientFilter filter)
     {
-        var patients = await repository.GetPatientsAsync();
+        var patients = await repository.GetPatientsAsync(filter);
         var res = patients.Select(x=>new PatientDto()
         {
             Id = x.Id,

@@ -1,6 +1,7 @@
 using Application.DTOs;
 using Application.Interfaces;
 using Application.Responces;
+using Domain.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -36,9 +37,9 @@ public class RoomController(
     }
 
     [HttpGet]
-    public async Task<ApiResponse<List<RoomDto>>> GetRooms()
+    public async Task<ApiResponse<List<RoomDto>>> GetRooms([FromQuery] RoomFilter filter)
     {
         _logger.LogInformation("GET rooms {date}", DateTime.Now);
-        return await service.GetRoomsAsync();
+        return await service.GetRoomsAsync(filter);
     }
 }

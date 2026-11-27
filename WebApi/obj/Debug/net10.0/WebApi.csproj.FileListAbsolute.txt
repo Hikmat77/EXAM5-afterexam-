@@ -184,3 +184,11 @@ C:\Users\firuz\OneDrive\Desktop\ClinicQueue\WebApi\obj\Debug\net10.0\refint\WebA
 C:\Users\firuz\OneDrive\Desktop\ClinicQueue\WebApi\obj\Debug\net10.0\WebApi.pdb
 C:\Users\firuz\OneDrive\Desktop\ClinicQueue\WebApi\obj\Debug\net10.0\WebApi.genruntimeconfig.cache
 C:\Users\firuz\OneDrive\Desktop\ClinicQueue\WebApi\obj\Debug\net10.0\ref\WebApi.dll
+C:\Users\firuz\AppData\Local\Temp\ClinicQueue-build-check\appsettings.Development.json
+C:\Users\firuz\AppData\Local\Temp\ClinicQueue-build-check\appsettings.json
+C:\Users\firuz\AppData\Local\Temp\ClinicQueue-build-check\WebApi.staticwebassets.endpoints.json
+C:\Users\firuz\AppData\Local\Temp\ClinicQueue-build-check\WebApi.exe
+C:\Users\firuz\AppData\Local\Temp\ClinicQueue-build-check\WebApi.deps.json
+C:\Users\firuz\AppData\Local\Temp\ClinicQueue-build-check\WebApi.runtimeconfig.json
+C:\Users\firuz\AppData\Local\Temp\ClinicQueue-build-check\WebApi.dll
+C:\Users\firuz\AppData\Local\Temp\ClinicQueue-build-check\WebApi.pdb

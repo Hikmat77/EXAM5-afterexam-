@@ -4,6 +4,7 @@ using Application.Interfaces;
 using Application.Responces;
 using Domain.Interfaces;
 using Domain.Models;
+using Domain.Filters;
 
 namespace Application.Services;
 
@@ -31,9 +32,9 @@ public class RoomService(IRoomRepository roomRepository) : IRoomService
     }
 
 
-    public async Task<ApiResponse<List<RoomDto>>> GetRoomsAsync()
+    public async Task<ApiResponse<List<RoomDto>>> GetRoomsAsync(RoomFilter filter)
     {
-        var rooms = await repository.GetRoomsAsync();
+        var rooms = await repository.GetRoomsAsync(filter);
         var res = rooms.Select(x=>new RoomDto()
         {
             Id = x.Id,

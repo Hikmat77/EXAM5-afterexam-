@@ -1,6 +1,7 @@
 using Application.DTOs;
 using Application.Interfaces;
 using Application.Responces;
+using Domain.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -43,9 +44,9 @@ public class PatientController(
     }
 
     [HttpGet]
-    public async Task<ApiResponse<List<PatientDto>>> GetPatients()
+    public async Task<ApiResponse<List<PatientDto>>> GetPatients([FromQuery] PatientFilter filter)
     {
         _logger.LogInformation("GET patients {date}", DateTime.Now);
-        return await service.GetPatientsAsync();
+        return await service.GetPatientsAsync(filter);
     }
 }

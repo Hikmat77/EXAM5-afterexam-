@@ -1,4 +1,5 @@
 using Domain.Models;
+using Domain.Filters;
 
 namespace Domain.Interfaces;
 
@@ -8,5 +9,5 @@ public interface IPatientRepository
     Task<bool> UpdatePatientAsync(Patient patient);
     Task<bool> DeactivatePatientAsync(int id);
     Task<Patient?> GetPatientAsync(int id);
-    Task<List<Patient>> GetPatientsAsync();
+    Task<List<Patient>> GetPatientsAsync(PatientFilter filter);
 }

@@ -1,5 +1,6 @@
 using Domain.Interfaces;
 using Domain.Models;
+using Domain.Filters;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,9 +38,30 @@ public class PatientRepository(AppDbContext appDbContext) : IPatientRepository
         return await _context.Patients.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<List<Patient>> GetPatientsAsync()
+    public async Task<List<Patient>> GetPatientsAsync(PatientFilter filter)
     {
-        return await _context.Patients.AsNoTracking().OrderBy(x => x.Id).ToListAsync();
+        var query = _context.Patients.AsNoTracking().AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(filter.Fullname))
+        {
+            var fullname = filter.Fullname.Trim();
+            query = query.Where(x => x.Fullname.Contains(fullname));
+        }
+
+        if (!string.IsNullOrWhiteSpace(filter.Phone))
+        {
+            var phone = filter.Phone.Trim();
+            query = query.Where(x => x.Phone.Contains(phone));
+        }
+
+        if (filter.IsActive.HasValue)
+        {
+            query = query.Where(x => x.IsActive == filter.IsActive.Value);
+        }
+
+        return await query
+            .OrderBy(x => x.Id)
+            .ToListAsync();
     }
 
     public async Task<bool> UpdatePatientAsync(Patient patient)
